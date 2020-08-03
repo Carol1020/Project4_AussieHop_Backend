@@ -2,10 +2,12 @@ class SessionsController < ApplicationController
   include CurrentUserConcern
 
   def create
-    user = User.find_by(email: params["user"]["email"]).try(:user, params["user"]["password"])
+    user = User
+      .find_by(email: params["user"]["email"])
+      .try(:user, params["user"]["password"])
 
     if user
-      sessions[:user_id] = user.id
+      sessions[:user_id] = user.id #put user.id into the cookie
       render json: {
         status: :created,
         logged_in: true,

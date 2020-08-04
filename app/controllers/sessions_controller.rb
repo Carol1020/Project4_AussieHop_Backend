@@ -11,7 +11,10 @@ class SessionsController < ApplicationController
       render json: {
         status: :created,
         logged_in: true,
-        user: user
+        user: {
+          email: user.email,
+          id: user.id
+        }
       }
     else
       render json: {
@@ -37,10 +40,5 @@ class SessionsController < ApplicationController
   def logout
     reset_session
     render json: { status: 200, logged_out: true }
-  end
-
-  private
-  def session_params
-    params.require(:user).permit(:email, :password)
   end
 end

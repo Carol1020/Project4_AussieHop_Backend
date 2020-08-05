@@ -3,12 +3,12 @@ class RoutesController < ApplicationController
 
   def index
     @routes = Route.all
-    render :json => @routes
+    render :json => @routes, :include => :stops
   end
 
   def show
     @route = Route.find params[:id]
-    render :json => @route
+    render :json => @route, :include => :stops
   end
 
   def edit

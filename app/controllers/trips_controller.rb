@@ -3,12 +3,12 @@ class TripsController < ApplicationController
 
   def index
     @trips = Trip.all
-    render :json => @trips
+    render :json => @trips, :include => :stops
   end
 
   def show
     @trip = Trip.find params[:id]
-    render :json => @trip
+    render :json => @trip, :include => :stops
   end
 
   def edit

@@ -2,13 +2,13 @@ class StopsController < ApplicationController
   before_action :set_stop, only: [:show, :edit, :update, :destroy]
 
   def index
-    @stops = Stop.all
-    render :json => @stops
+    @stops = Stop.all.uniq {|s| s.name}
+    render :json => @stops, :include => :trips
   end
 
   def show
     @stop = Stop.find params[:id]
-    render :json => @stop
+    render :json => @stop, :include => :trips
   end
 
   def edit
